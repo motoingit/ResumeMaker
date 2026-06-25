@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: development
+    container_name: resume_builder_backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+      # Anonymous volume to protect container's node_modules from being overwritten by host bind-mount
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
